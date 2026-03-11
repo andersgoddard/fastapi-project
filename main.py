@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 from address_match import score_address_pairs
-from mangum import Mangum
 
 app = FastAPI()
 
@@ -20,10 +19,8 @@ class MatchRequest(BaseModel):
 
 class MatchResponse(BaseModel):
     results: List[MatchResult]
-    
+
 @app.post("/match", response_model=MatchResponse)
 def match(req: MatchRequest):
     results = score_address_pairs([p.dict() for p in req.pairs])
     return {"results": results}
-    
-handler = Mangum(app)
