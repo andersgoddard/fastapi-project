@@ -20,3 +20,6 @@ steps:
 
 images:
   - 'gcr.io/$PROJECT_ID/address-matcher:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
