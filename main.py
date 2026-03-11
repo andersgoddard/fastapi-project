@@ -20,6 +20,10 @@ class MatchRequest(BaseModel):
 class MatchResponse(BaseModel):
     results: List[MatchResult]
 
+@app.get("/")
+def root():
+    return {"service": "address matcher", "status": "running"}
+
 @app.post("/match", response_model=MatchResponse)
 def match(req: MatchRequest):
     results = score_address_pairs([p.dict() for p in req.pairs])
